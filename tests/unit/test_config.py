@@ -20,12 +20,9 @@ from tracker.config import (
     CameraConfig,
     Config,
     DetectorConfig,
-    LoggingConfig,
     TrackerConfig,
-    VisualizationConfig,
     load_config,
 )
-
 
 # ------ Fixtures ------
 
@@ -33,7 +30,8 @@ from tracker.config import (
 @pytest.fixture
 def default_config(tmp_path: Path) -> Path:
     """Write a minimal valid config yaml to a temp file and return the path."""
-    content = textwrap.dedent("""
+    content = textwrap.dedent(
+        """
         camera:
           device_id: 0
           width: 1280
@@ -62,7 +60,8 @@ def default_config(tmp_path: Path) -> Path:
           file: "logs/tracker.log"
           rotation: "10 MB"
           retention: "7 days"
-    """)
+    """
+    )
     config_file = tmp_path / "test_config.yaml"
     config_file.write_text(content, encoding="utf-8")
     return config_file

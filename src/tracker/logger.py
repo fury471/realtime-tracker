@@ -82,9 +82,9 @@ def setup_logging(config: LoggingConfig) -> None:
         level=config.level,
         filter=_ensure_module,
         format="{time:YYYY-MM-DD HH:mm:ss} | {level:<8} | {extra[module]}:{line} - {message}",
-        rotation=config.rotation,    # new file after 10 MB
+        rotation=config.rotation,  # new file after 10 MB
         retention=config.retention,  # delete files older than 7 days
-        encoding="utf-8",            # explicit — never rely on Windows default
+        encoding="utf-8",  # explicit — never rely on Windows default
     )
 
     logger.info(f"Logging initialised — level={config.level}, file={log_path}")
