@@ -1,8 +1,3 @@
-# CI workflow — runs on every push and pull request to main.
-# Tests on Python 3.11 and 3.12 to catch compatibility issues early.
-# Note: we do NOT test on 3.14 in CI because most Linux runners
-# do not yet have cp314 wheels for all dependencies.
-
 name: CI
 
 on:
@@ -13,12 +8,13 @@ on:
 
 jobs:
   test:
-    name: Test (Python ${{ matrix.python-version }})
-    runs-on: ubuntu-latest
+    name: Test (Python ${{ matrix.python-version }} on ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ["3.11", "3.12"]
 
     steps:
@@ -45,10 +41,8 @@ jobs:
       - name: Pytest — run tests
         run: python -m pytest tests/ -v --tb=short
 
-  # Separate job: only runs if 'test' job passes
-  # Confirms the package installs cleanly from scratch
   install-check:
-    name: Clean install check
+    name: Clean install check (ubuntu)
     runs-on: ubuntu-latest
     needs: test
 
@@ -59,12 +53,12 @@ jobs:
           python-version: "3.11"
           cache: pip
 
-      - name: Install package only (no dev extras)
+      - name: Install package only
         run: |
           pip install --upgrade pip
           pip install -e .
 
-      - name: Verify core imports work
+      - name: Verify core imports
         run: |
           python -c "import tracker; print('tracker: OK')"
           python -c "from tracker.config import load_config; print('config: OK')"

@@ -1,11 +1,10 @@
 # Realtime Object Tracker
 
-![CI](https://github.com/fury471/realtime-tracker/actions/workflows/ci.yml/badge.svg)
-![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
-![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![CI](https://github.com/fury471/realtime-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/fury471/realtime-tracker/actions/workflows/ci.yml)
+[![Python 3.11 | 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)](https://www.python.org/downloads/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Real-time object tracking pipeline using YOLOv8 + SORT algorithm,
-served via FastAPI with a live WebSocket stream.
+Real-time object tracking pipeline using YOLOv8 + SORT algorithm, served via FastAPI with a live WebSocket stream.
 
 ## Project structure
 
