@@ -18,7 +18,6 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, Field
 
-
 # ------ Section models ------
 # Each class maps to one top-level key in default.yaml.
 # Field(description=...) documents what the value means.
