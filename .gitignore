@@ -27,8 +27,10 @@ build/
 models/*
 !models/.gitkeep
 
-# Data — too large for git
+# Data — too large for git, but keep folder structure
 data/*
+!data/
+!data/raw/
 !data/raw/.gitkeep
 
 # Logs
