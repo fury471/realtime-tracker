@@ -25,3 +25,16 @@
 - Always use: open(path, encoding='utf-8') for all file I/O
 - Always save source files as UTF-8 without BOM
 - Avoid Unicode box-drawing characters in source files and configs
+
+## Week 1 reflection
+
+Harder than expected:
+1. Dependency conflicts (torch + setuptools) — learned: always document WHY a version is pinned
+2. Pre-commit version mismatch with local Black — learned: pin tool versions identically everywhere
+3. Windows encoding (GBK vs UTF-8) — learned: always explicit encoding='utf-8' on every file open
+
+Key insight:
+- A loud early failure (Pydantic ValidationError) is always better than a silent wrong result
+- Tests are not about coverage numbers — they're about thinking through failure modes
+
+Next week: actual CV algorithms start (color spaces, convolution, edge detection, YOLO)
