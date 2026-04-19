@@ -1,0 +1,72 @@
+# CI workflow — runs on every push and pull request to main.
+# Tests on Python 3.11 and 3.12 to catch compatibility issues early.
+# Note: we do NOT test on 3.14 in CI because most Linux runners
+# do not yet have cp314 wheels for all dependencies.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e ".[dev,api]"
+
+      - name: Ruff — lint
+        run: python -m ruff check src/ tests/
+
+      - name: Black — format check
+        run: python -m black --check src/ tests/
+
+      - name: Pytest — run tests
+        run: python -m pytest tests/ -v --tb=short
+
+  # Separate job: only runs if 'test' job passes
+  # Confirms the package installs cleanly from scratch
+  install-check:
+    name: Clean install check
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package only (no dev extras)
+        run: |
+          pip install --upgrade pip
+          pip install -e .
+
+      - name: Verify core imports work
+        run: |
+          python -c "import tracker; print('tracker: OK')"
+          python -c "from tracker.config import load_config; print('config: OK')"
+          python -c "from tracker.capture.camera import Camera; print('camera: OK')"
+          python -c "from tracker.logger import get_logger; print('logger: OK')"
