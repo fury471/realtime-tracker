@@ -1,0 +1,61 @@
+# Conda — never commit the environment folder
+.conda/
+*.conda
+
+# Virtual environment (in case someone uses venv instead)
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Model weights — too large for git
+*.pt
+*.pth
+*.onnx
+models/*
+!models/.gitkeep
+
+# Data — too large for git
+data/*
+!data/raw/.gitkeep
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+# Environment variables — never commit secrets
+.env
+.env.*
+
+# Test + coverage output
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Profiling
+*.stats
+profile.stats

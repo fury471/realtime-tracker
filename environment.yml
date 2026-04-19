@@ -1,0 +1,21 @@
+name: realtime-tracker
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.14.4
+
+  # CONSTRAINT: setuptools must stay <82
+  # Reason: torch 2.11+cu130 requires setuptools<82
+  # Do NOT run: pip install --upgrade setuptools
+  - pip
+
+  - pip:
+      # Install torch manually first — see NOTES.md
+      # pip install torch==2.11.0+cu130 torchvision==0.26.0+cu130
+      #   --index-url https://download.pytorch.org/whl/cu130
+
+      # Then install the project
+      - -e ".[dev,api]"
