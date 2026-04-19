@@ -19,3 +19,9 @@
 2. conda activate realtime-tracker
 3. pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 4. pip install -e ".[dev,api]"
+
+## Windows encoding
+- System locale: Chinese (GBK/CP936)
+- Always use: open(path, encoding='utf-8') for all file I/O
+- Always save source files as UTF-8 without BOM
+- Avoid Unicode box-drawing characters in source files and configs

@@ -1,0 +1,36 @@
+# Realtime Tracker - default configuration
+# All values here can be overridden by environment-specific
+# configs or CLI arguments.
+
+camera:
+  device_id: 0
+  width: 1280
+  height: 720
+  fps: 30
+
+detector:
+  model: "yolov8n.pt"
+  confidence: 0.5
+  iou_threshold: 0.45
+  device: "cuda"
+  detect_every: 1
+
+tracker:
+  max_age: 30
+  min_hits: 3
+  iou_threshold: 0.3
+
+visualization:
+  show_confidence: true
+  show_track_id: true
+  show_class_name: true
+  box_thickness: 2
+  font_scale: 0.6
+  heatmap_alpha: 0.4
+  heatmap_decay: 0.99
+
+logging:
+  level: "INFO"
+  file: "logs/tracker.log"
+  rotation: "10 MB"
+  retention: "7 days"
